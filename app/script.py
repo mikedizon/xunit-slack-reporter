@@ -17,6 +17,9 @@ def main():
     if constants.SLACK_TOKEN_ENV_VAR not in os.environ:
         raise Exception(f"Slack channel!  Please make sure to set the {constants.SLACK_TOKEN_ENV_VAR} env variable!")
 
+    if constants.SLACK_ATTACHMENT_AUTHOR_NAME_ENV_VAR not in os.environ:
+        raise Exception(f"Slack channel!  Please make sure to set the {constants.SLACK_ATTACHMENT_AUTHOR_NAME_ENV_VAR} env variable!")
+
     # Load XUnit report
     try:
         xunit_path = os.getenv(constants.XUNIT_PATH_ENV_VAR)
@@ -27,7 +30,7 @@ def main():
     # Slack results
     slack_attachment = {
         "color": constants.PASS_COLOR,
-        "author_name": "XUnit Slack Reporter",
+        "author_name": constants.SLACK_ATTACHMENT_AUTHOR_NAME_ENV_VAR,
         "author_link": "https://github.com/ivanklee86/xunit-slack-reporter",
         "title": f"XUnit test results for {os.getenv('GITHUB_WORKFLOW')} on {os.getenv('GITHUB_REF')}",
         "fields": []
